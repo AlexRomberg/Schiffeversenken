@@ -10,15 +10,15 @@ Mit diesem Protokoll wird die Kommunikation in einem Schiffeversenken Spiel erm�
 # Verbindung
 ## Lobby
 ### Statusmeldung
-Ein Benutzer gibt sich selbst beim start den **Namen: Anonymous** und eine User-ID. Diese ergeben zusammen die BenutzerId. Mehr dazu in _Protokollelemente/BenutzerId_.<br>
-Wenn ein Benutzer frei für ein Spiel wird oder danach gefragt wird _(Verbindung/Lobby/Request)_, schickt er dies an alle.<br>
+Ein Benutzer gibt sich selbst beim start den **Namen: Anonymous** und eine User-ID. Diese ergeben zusammen die BenutzerId. Mehr dazu in _[Protokollelemente/BenutzerId](#benutzerid)_.<br>
+Wenn ein Benutzer frei für ein Spiel wird oder danach gefragt wird _[(siehe Verbindung/Lobby/Anfrage)](#anfrage)_, schickt er dies an alle.<br>
 **Syntax:** `swp|@all|[BenutzerId]|free|eof`<br>
 **Beispiel:** _swp|@all|anonymous:1234|free|eof_<br>
 **Anwendung:** Beim Empfang einer Statusmeldung wird diese gespeichert, solange es kein Dublikat ist.
 
 ### Anfrage
 Ein Benutzer kann eine Liste an Online Benutzern beantragen indem er eine Onlineanfrage stellt.<br>
-Diese wird von jedem Benutzer der frei ist beantwortet _(siehe Verbindung/Lobby/Statusmeldung)_.<br>
+Diese wird von jedem Benutzer der frei ist beantwortet _[(siehe Verbindung/Lobby/Statusmeldung)](#statusmeldung)_.<br>
 **Syntax:** `swp|@all|[BenutzerId]|reqfree|eof`<br>
 **Beispiel:** _swp|@all|anonymous:1234|reqfree|eof_<br>
 **Anwendung:** Beim Empfang einer Statusanfrage antwortet der Client mit einer Statusmeldung.
@@ -31,13 +31,13 @@ Ein Spieler kann durch eine Person angefragt werden.<br>
 **Anwendung:** Ein Benutzer schickt die Anfrage an den Gegner, welcher dann gefragt wird ob er das Spiel annimmt. Die Anfrage ist maximal **30 Sekunden** offen, danach werden auf beiden Seiten die Dialoge wieder geschlossen und eine neue Anfrage kann gestellt werden.
 
 ### Spiel bestätigen
-Ein Spieler der Angefragt wurde kann ein Spiel bestätigen oder ablehnen _(siehe Verbindung/Lobby/Spiel ablehnen)_.<br>
+Ein Spieler der Angefragt wurde kann ein Spiel bestätigen oder ablehnen _[(siehe Verbindung/Lobby/Spiel ablehnen)](#spiel-ablehnen)_.<br>
 **Syntax:** `swp|[EmpfängerId]|[BenutzerId]|pa|eof`<br>
 **Beispiel:** _swp|anonymous:1234|opponent:4321|pa|eof_<br>
 **Anwendung:** Der Spieler schickt die Antwort zurück an den Anfragesteller.
 
 ### Spiel ablehnen
-Ein Spieler der Angefragt wurde kann ein Spiel bestätigen _(siehe Verbindung/Lobby/Spiel bestätigen)_ oder ablehnen.<br>
+Ein Spieler der Angefragt wurde kann ein Spiel bestätigen _[(siehe Verbindung/Lobby/Spiel bestätigen)](#spiel-bestätigen)_ oder ablehnen.<br>
 **Syntax:** `swp|[EmpfängerId]|[BenutzerId]|pd|eof`<br>
 **Beispiel:** _swp|anonymous:1234|opponent:4321|pd|eof_<br>
 **Anwendung:** Der Spieler schickt die Antwort zurück an den Anfragesteller.
@@ -58,7 +58,7 @@ Wenn ein Spieler seine Schiffe verteilt hat schickt er eine Nachricht, dass er b
 Ein Spieler der an der Reihe ist darf sich ein Feld auswählen, welches er angreifen möchte.<br>
 **Syntax:** `swp|[EmpfängerId]|[BenutzerId]|shot|[x]|[y]|eof`<br>
 **Beispiel:** _swp|anonymous:1234|opponent:4321|pd|eof_<br>
-**Anwendung:** [x] und [y] sind dabei die 0-basierten Positionen des Schusses.
+**Anwendung:** `[x]` und `[y]` sind dabei die 0-basierten Positionen des Schusses.
 
 ### Schuss antwort
 
@@ -70,7 +70,7 @@ Ein Spieler der an der Reihe ist darf sich ein Feld auswählen, welches er angre
 Ein Spieler der abgeschossen wurde, Antwortet mit einer von den Oben stehenden Antworten.<br>
 **Syntax:** `swp|[EmpfängerId]|[BenutzerId]|pa|eof`<br>
 **Beispiel:** _swp|anonymous:1234|opponent:4321|pd|eof_<br>
-**Anwendung:** Der Spieler schickt die Antwort zurück an den Anfragesteller. Bei [sc] wird das Spiel beidseitig beended _(ähnlich Verbundung/Spiel/Spiel abbrechen)_
+**Anwendung:** Der Spieler schickt die Antwort zurück an den Anfragesteller. Bei [sc] wird das Spiel beidseitig beended _[(ähnlich Verbundung/Spiel/Spiel abbrechen)](#spiel-abbrechen)_
 
 # Verbindungsregeln
 - Die Person die die Spielanfrage stellt ist auch die, welche den ersten Schuss machen darf.
@@ -112,10 +112,10 @@ Eine Protokollanfrage besteht grundsätzliche aus fünf Elementen.
 - ShipWreck Protocol
   - swp
 - Empfänger
-  - BenutzerId _(Protocol/BenutzerId)_
-  - @all _(Protokollelemente/Nachrichten an Alle)_
+  - BenutzerId _[(Protokollelemente/BenutzerId)](#benutzerid)_
+  - @all _[(Protokollelemente/Nachrichten an Alle)](#nachrichten-an-alle)_
 - Sender
-  - BenutzerId _(Protocol/BenutzerId)_
+  - BenutzerId _[(Protokollelemente/BenutzerId)](#benutzerid)_
 - Nachrichteninhalt
 - End of file
   - eof
@@ -143,7 +143,7 @@ Als Benutzername für alle kann `@all` verwendet werden.
 
 
 # Diagramm
-## Normaler verlauf
+## Normaler Verlauf
 ```
     p1                   p2
     |    freereq       ->|
